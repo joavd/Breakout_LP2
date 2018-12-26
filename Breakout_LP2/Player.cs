@@ -7,7 +7,7 @@ namespace Breakout_LP2
     class Player
     {
 
-        private void Update()
+        public void Update()
         {
 
         }

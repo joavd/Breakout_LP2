@@ -8,8 +8,6 @@ namespace Breakout_LP2
 {
     class GameLoop
     {
-
-
         // Variáveis de instância
         private DoubleBuffer2D<Cell> simWorld;
         private Random random;

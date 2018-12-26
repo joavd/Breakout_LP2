@@ -7,7 +7,7 @@ namespace Breakout_LP2
     class Ball
     {
 
-        private void Update()
+        public void Update()
         {
 
         }
