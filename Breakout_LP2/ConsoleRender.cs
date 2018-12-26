@@ -2,7 +2,7 @@
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Exercicio4
+namespace Breakout_LP2
 {
     // Esta classe é uma implementação de renderizador do game of life para
     // consola/terminal
