@@ -18,10 +18,12 @@ namespace Breakout_LP2 {
         }
 
         public void Update(DoubleBuffer2D<IGameobject> world) {
-            if (yMove == -1) {
+            if (world[X, Y + yMove] != null) {
                 world[X, Y + yMove] = this;
                 world[X, Y] = null;
                 Y += yMove;
+            } else {
+                yMove *= -1;
             }
         }
 
