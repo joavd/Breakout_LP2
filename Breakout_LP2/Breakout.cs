@@ -14,7 +14,7 @@ namespace Breakout_LP2 {
 
         // Construtor
         public Breakout(
-            int xdim, int ydim, double aliveProb, IRenderer renderer) {
+            int xdim, int ydim, IRenderer renderer) {
             quit = false;
             // Inicializar gerador de números aleatórios
             random = new Random();
