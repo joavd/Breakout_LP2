@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Breakout_LP2
-{
-    class Player
-    {
-
-        public void Update()
-        {
+namespace Breakout_LP2 {
+    class Player {
+        public void Update() {
 
         }
     }

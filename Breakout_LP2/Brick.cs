@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Breakout_LP2
-{
-    class Brick
-    {
+namespace Breakout_LP2 {
+    class Brick {
     }
 }
