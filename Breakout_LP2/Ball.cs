@@ -3,13 +3,34 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Breakout_LP2 {
-    class Ball : IGameobject {
-        public void Update() {
+    public class Ball : IGameobject {
+        private int xMove;
+        private int yMove;
 
+        public int X { get; private set; }
+
+        public int Y { get; private set; }
+
+        public Ball(int x, int y) {
+            X = x;
+            Y = y;
+            yMove = -1;
+        }
+
+        public void Update(DoubleBuffer2D<IGameobject> world) {
+            if (yMove == -1) {
+                world[X, Y + yMove] = this;
+                world[X, Y] = null;
+                Y += yMove;
+            }
         }
 
         public void OnCollide() {
 
+        }
+
+        public string Render() {
+            return "o";
         }
     }
 }

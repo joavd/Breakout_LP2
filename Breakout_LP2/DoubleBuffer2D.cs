@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Breakout_LP2 {
-    class DoubleBuffer2D<T> : IBuffer2D<T>, IEnumerable<T> {
+    public class DoubleBuffer2D<T> : IBuffer2D<T>, IEnumerable<T> {
 
         // Os dois buffers
         private T[,] nextBuffer, currentBuffer;
