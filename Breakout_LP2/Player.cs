@@ -14,7 +14,7 @@ namespace Breakout_LP2 {
         }
 
         public void Update(DoubleBuffer2D<IGameobject> world) {
-
+            world[X, Y] = this;
         }
 
         public void OnCollide() {

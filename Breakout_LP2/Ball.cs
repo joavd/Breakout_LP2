@@ -18,12 +18,13 @@ namespace Breakout_LP2 {
         }
 
         public void Update(DoubleBuffer2D<IGameobject> world) {
-            if (world[X, Y + yMove] == null) {
-                world[X, Y + yMove] = this;
-                world[X, Y] = null;
-                Y += yMove;
-            } else {
+            if (world[X, Y + yMove] != null) {
                 yMove *= -1;
+            } else {
+                // WHY THE HELL DOES IT "CREATE" MORE BALLS
+                world[X, Y] = null;
+                world[X, Y += yMove] = this;
+                Console.WriteLine(Y);
             }
         }
 

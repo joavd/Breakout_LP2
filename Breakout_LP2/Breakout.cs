@@ -9,8 +9,8 @@ namespace Breakout_LP2 {
         private DoubleBuffer2D<IGameobject> simWorld;
         private Random random;
         private IRenderer renderer;
-        private Stopwatch sw;
         private bool quit;
+        private Stopwatch sw = new Stopwatch();
 
         // Construtor
         public Breakout(
@@ -36,73 +36,40 @@ namespace Breakout_LP2 {
 
             // Garantir que mundo inicializado fica disponível para leitura
             simWorld.Swap();
-            sw = new Stopwatch();
+            sw.Start();
         }
 
         // Método que implementa o game loop
         public void GameLoop(int msFramesPerSecond) {
-            //double t = 0.0;
-            //double dt = 0.01;
-
-            //double currentTime = Stopwatch.GetTimestamp();
-            //double accumulator = 0.0;
-
-            //// Setup inicial do renderizador
-            //renderer.Setup(simWorld);
-
-            //// Iniciar game loop
-            //while (!quit) {
-            //    double newTime = Stopwatch.GetTimestamp();
-            //    double frameTime = newTime - currentTime;
-            //    currentTime = newTime;
-
-            //    accumulator += frameTime;
-
-            //    // Fazer o input do jogador aqui
-
-            //    while (accumulator >= dt) {
-            //        // Realizar um passo da simulação usando o Update Method
-            //        // pattern
-            //        foreach (IGameobject obj in simWorld) {
-            //            if (obj != null) {
-            //                obj.Update();
-            //            }
-            //        }
-            //        accumulator -= dt;
-            //        t += dt;
-            //    }
-
-
-            //    // Fazer swap do buffer e envia-lo para o renderer
-            //    simWorld.Swap();
-
-            //    renderer.Render(simWorld);
-            //}
-            // Setup inicial do renderizador
             renderer.Setup(simWorld);
+            double previous = sw.ElapsedMilliseconds;
+            double lag = 0.0;
+            double ms = 160;
 
             // Iniciar game loop
-            while (true) {
-                // Obter tempo atual em ticks (10000 ticks = 1 milisegundo)
-                long start = DateTime.Now.Ticks;
+            while (!quit) {
+                double current = sw.ElapsedMilliseconds;
+                double elapsed = current - previous;
+                previous = current;
+                lag += elapsed;
 
-                // Realizar um passo da simulação usando o Update Method
-                // pattern
-                foreach (IGameobject obj in simWorld) {
-                    if (obj != null) {
-                        obj.Update(simWorld);
+                // Input
+
+                while (lag >= ms) {
+                    foreach (IGameobject obj in simWorld) {
+                        if (obj != null) {
+                            obj.Update(simWorld);
+                        }
                     }
+                    lag -= ms;
                 }
 
                 // Fazer swap do buffer e envia-lo para o renderer
                 simWorld.Swap();
                 renderer.Render(simWorld);
 
-                // Esperar até ser tempo da próxima iteração
-                Thread.Sleep((int)
-                    (start / 10000 + msFramesPerSecond
-                    - DateTime.Now.Ticks / 10000));
             }
         }
     }
 }
+
