@@ -11,20 +11,18 @@ namespace Breakout_LP2 {
 
         public int Y { get; private set; }
 
+        public string Img { get; } = "o";
+
         public Ball(int x, int y) {
             X = x;
             Y = y;
             yMove = -1;
         }
 
-        public void Update(DoubleBuffer2D<IGameobject> world) {
+        public void Update(DoubleBuffer2D<string> world) {
+            // If detects another object changes direction
             if (world[X, Y + yMove] != null) {
                 yMove *= -1;
-            } else {
-                // WHY THE HELL DOES IT "CREATE" MORE BALLS
-                world[X, Y] = null;
-                world[X, Y += yMove] = this;
-                Console.WriteLine(Y);
             }
         }
 
@@ -32,8 +30,12 @@ namespace Breakout_LP2 {
 
         }
 
-        public string Render() {
-            return "o";
+        public void Render(DoubleBuffer2D<string> world) {
+            if (world[X, Y + yMove] == null) {
+                // Moves in the given direction
+                X = X;
+                Y += yMove;
+            }
         }
     }
 }

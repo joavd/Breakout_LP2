@@ -4,10 +4,12 @@
 
         int Y { get; }
 
-        void Update(DoubleBuffer2D<IGameobject> world);
+        string Img { get; }
+
+        void Update(DoubleBuffer2D<string> world);
 
         void OnCollide();
 
-        string Render();
+        void Render(DoubleBuffer2D<string> world);
     }
 }

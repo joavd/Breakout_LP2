@@ -8,21 +8,21 @@ namespace Breakout_LP2 {
 
         public int Y { get; private set; }
 
+        public string Img { get; } = "-";
+
         public Brick(int x, int y) {
             X = x;
             Y = y;
         }
 
-        public void Update(DoubleBuffer2D<IGameobject> world) {
-            world[X, Y] = this;
+        public void Update(DoubleBuffer2D<string> world) {
         }
 
         public void OnCollide() {
 
         }
 
-        public string Render() {
-            return "-";
+        public void Render(DoubleBuffer2D<string> world) {
         }
     }
 }
