@@ -60,7 +60,7 @@ namespace Breakout_LP2 {
             renderer.Setup(simWorld);
             double previous = sw.ElapsedMilliseconds;
             double lag = 0.0;
-            double ms = 16;
+            double ms = 160;
 
             // Iniciar game loop
             while (!quit) {
@@ -68,7 +68,7 @@ namespace Breakout_LP2 {
                 double elapsed = current - previous;
                 previous = current;
                 lag += elapsed;
-                
+
                 simWorld.Clear();
 
                 // Input
@@ -82,12 +82,7 @@ namespace Breakout_LP2 {
                     }
 
                     foreach (IGameobject obj in gameobjects) {
-                        if (obj != null) {
-                            obj.Update(simWorld);
-                        }
-                    }
-                    
-                    foreach (IGameobject obj in gameobjects) {
+                        obj.Update(simWorld);
                         obj.Render(simWorld);
                         simWorld[obj.X, obj.Y] = obj.Img;
                     }

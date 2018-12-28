@@ -21,7 +21,7 @@ namespace Breakout_LP2 {
 
         public void Update(DoubleBuffer2D<string> world) {
             // If detects another object changes direction
-            if (world[X, Y + yMove] != null) {
+            if (world[X, Y + yMove] != " ") {
                 yMove *= -1;
             }
         }
@@ -31,7 +31,7 @@ namespace Breakout_LP2 {
         }
 
         public void Render(DoubleBuffer2D<string> world) {
-            if (world[X, Y + yMove] == null) {
+            if (world[X, Y + yMove] == " ") {
                 // Moves in the given direction
                 X = X;
                 Y += yMove;
