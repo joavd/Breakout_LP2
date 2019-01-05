@@ -1,98 +1,114 @@
 ﻿using System;
-using System.Threading;
-using System.Diagnostics;
 using System.Collections.Generic;
+using GameEngine;
 
 namespace Breakout_LP2 {
-    class Breakout {
+    public class Breakout {
 
-        // Variáveis de instância
-        private int xd, yd;
-        private DoubleBuffer2D<string> simWorld;
-        private List<IGameobject> gameobjects;
-        private Random random;
-        private IRenderer renderer;
-        private bool quit;
-        private Stopwatch sw = new Stopwatch();
+        // World dimensions
+        int xdim = 50, ydim = 40;
 
-        // Construtor
-        public Breakout(
-            int xdim, int ydim, IRenderer renderer) {
-            quit = false;
-            // Inicializar gerador de números aleatórios
-            random = new Random();
-            xd = xdim;
-            yd = ydim;
+        // Frame duration in miliseconds
+        int frameLength = 100;
 
-            // Criar double buffer onde vamos guardar o mundo
-            simWorld = new DoubleBuffer2D<string>(xdim, ydim);
+        // The (only) game scene
+        private Scene gameScene;
 
-            gameobjects = new List<IGameobject>();
+        public Breakout() {
+            // Create scene
+            ConsoleKey[] quitKeys = new ConsoleKey[] { ConsoleKey.Escape };
+            gameScene = new Scene(xdim, ydim,
+                new InputHandler(quitKeys),
+                new ConsoleRenderer(xdim, ydim, new ConsolePixel('.')));
 
-            // Guardar renderer
-            this.renderer = renderer;
+            // Create quitter object
+            GameObject quitter = new GameObject("Quitter");
+            KeyObserver quitSceneKeyListener = new KeyObserver(new ConsoleKey[]
+                { ConsoleKey.Escape });
+            quitter.AddComponent(quitSceneKeyListener);
+            quitter.AddComponent(new Quitter());
+            gameScene.AddGameObject(quitter);
 
-            // Inicializar mundo
-            for (int y = 0; y < ydim; y++) {
-                for (int x = 0; x < xdim; x++) {
-                    simWorld[x, y] = " ";
-                }
-            }
+            // Create player object
+            char[,] playerSprite =
+            {
+                { '-' },
+                { '-' },
+                { 'P' },
+                { '-' },
+                { '-' }
+            };
+            GameObject player = new GameObject("Player");
+            KeyObserver playerKeyListener = new KeyObserver(new ConsoleKey[] {
+                ConsoleKey.RightArrow,
+                ConsoleKey.LeftArrow});
+            player.AddComponent(playerKeyListener);
+            Position playerPos = new Position(25f, 35f, 0f);
+            player.AddComponent(playerPos);
+            player.AddComponent(new Player());
+            player.AddComponent(new ConsoleSprite(
+                playerSprite, ConsoleColor.Red, ConsoleColor.DarkGreen));
+            gameScene.AddGameObject(player);
 
-            for (int x = 0; x < xdim; x++) {
-                gameobjects.Add(new Brick(x, 3));
-                simWorld[x, 3] = gameobjects[gameobjects.Count - 1].Img;
-            }
+            // Ball Object
+            char[,] ballSprite =
+            {
+                { 'O' },
+            };
+            GameObject ball = new GameObject("Ball");
+            Position ballPos = new Position(25f, 30f, 0f);
+            ball.AddComponent(ballPos);
+            ball.AddComponent(new Ball());
+            ball.AddComponent(new ConsoleSprite(
+                ballSprite, ConsoleColor.Red, ConsoleColor.DarkYellow));
+            gameScene.AddGameObject(ball);
 
-            gameobjects.Add(new Player(xdim / 2, ydim - 3));
-            simWorld[xdim / 2, ydim - 3] = gameobjects[gameobjects.Count - 1].Img;
-            gameobjects.Add(new Ball(xdim / 2, ydim - 4));
-            simWorld[xdim / 2, ydim - 4] = gameobjects[gameobjects.Count - 1].Img;
+            // Create walls
+            GameObject walls = new GameObject("Walls");
+            ConsolePixel wallPixel = new ConsolePixel(
+                '#', ConsoleColor.Blue, ConsoleColor.White);
+            Dictionary<Vector2, ConsolePixel> wallPixels =
+                new Dictionary<Vector2, ConsolePixel>();
+            for (int x = 0; x < xdim; x++)
+                wallPixels[new Vector2(x, 0)] = wallPixel;
+            for (int x = 0; x < xdim; x++)
+                wallPixels[new Vector2(x, ydim - 1)] = wallPixel;
+            for (int y = 0; y < ydim; y++)
+                wallPixels[new Vector2(0, y)] = wallPixel;
+            for (int y = 0; y < ydim; y++)
+                wallPixels[new Vector2(xdim - 1, y)] = wallPixel;
+            walls.AddComponent(new ConsoleSprite(wallPixels));
+            walls.AddComponent(new Position(0, 0, 1));
+            gameScene.AddGameObject(walls);
 
+            // Create game object for showing date and time
+            GameObject dtGameObj = new GameObject("Time");
+            dtGameObj.AddComponent(new Position(15, 0, 10));
+            RenderableStringComponent rscDT = new RenderableStringComponent(
+                () => DateTime.Now.ToString("F"),
+                i => new Vector2(i, 0),
+                ConsoleColor.DarkMagenta, ConsoleColor.White);
+            dtGameObj.AddComponent(rscDT);
+            gameScene.AddGameObject(dtGameObj);
 
-            // Garantir que mundo inicializado fica disponível para leitura
-            simWorld.Swap();
-            sw.Start();
+            // Create game object for showing position
+            GameObject pos = new GameObject("Position");
+            pos.AddComponent(new Position(1, 0, 10));
+            RenderableStringComponent rscPos = new RenderableStringComponent(
+                () => $"({playerPos.Pos.X}, {playerPos.Pos.Y})",
+                i => new Vector2(i, 0),
+                ConsoleColor.DarkMagenta, ConsoleColor.White);
+            pos.AddComponent(rscPos);
+            gameScene.AddGameObject(pos);
+
         }
 
-        // Método que implementa o game loop
-        public void GameLoop(int msFramesPerSecond) {
-            renderer.Setup(simWorld);
-            double previous = sw.ElapsedMilliseconds;
-            double lag = 0.0;
-            double ms = 160;
-
-            // Iniciar game loop
-            while (!quit) {
-                double current = sw.ElapsedMilliseconds;
-                double elapsed = current - previous;
-                previous = current;
-                lag += elapsed;
-
-                simWorld.Clear();
-
-                // Input
-
-                while (lag >= ms) {
-                    // Mete tudo branco
-                    for (int y = 0; y < yd; y++) {
-                        for (int x = 0; x < xd; x++) {
-                            simWorld[x, y] = " ";
-                        }
-                    }
-
-                    foreach (IGameobject obj in gameobjects) {
-                        obj.Update(simWorld);
-                        obj.Render(simWorld);
-                        simWorld[obj.X, obj.Y] = obj.Img;
-                    }
-                    lag -= ms;
-                }
-
-                simWorld.Swap();
-                renderer.Render(simWorld);
-            }
+        public void Run() {
+            // Start game loop
+            gameScene.GameLoop(frameLength);
         }
     }
+
 }
+
 

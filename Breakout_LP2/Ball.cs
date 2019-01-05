@@ -1,41 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using GameEngine;
 
 namespace Breakout_LP2 {
-    public class Ball : IGameobject {
-        private int xMove;
-        private int yMove;
+    public class Ball : Component {
 
-        public int X { get; private set; }
+        private int xMove = 0;
+        private int yMove = -1;
 
-        public int Y { get; private set; }
+        // Ball script requries access to the key observer and position
+        // components
+        private Position position;
 
-        public string Img { get; } = "o";
-
-        public Ball(int x, int y) {
-            X = x;
-            Y = y;
-            yMove = -1;
+        // Initialize player
+        public override void Start() {
+            position = ParentGameObject.GetComponent<Position>();
         }
 
-        public void Update(DoubleBuffer2D<string> world) {
+        // Update ball in the current frame
+        public override void Update() {
+            // Get ball position
+            float x = position.Pos.X;
+            float y = position.Pos.Y;
+
             // If detects another object changes direction
-            if (world[X, Y + yMove] != " ") {
+            // Não sei ver como se encontra outro gameobject
+            if (y + yMove <= 0 || y + yMove >= ParentScene.ydim - 1) {
                 yMove *= -1;
             }
-        }
 
-        public void OnCollide() {
-
-        }
-
-        public void Render(DoubleBuffer2D<string> world) {
-            if (world[X, Y + yMove] == " ") {
+            if (true) {
                 // Moves in the given direction
-                X = X;
-                Y += yMove;
+                x += xMove;
+                y += yMove;
             }
+
+
+
+
+            // Make sure ball doesn't get outside of game area
+            y = Math.Clamp(y, 1, ParentScene.ydim - 1);
+
+            // Update ball position
+            position.Pos = new Vector3(x, y, position.Pos.Z);
         }
     }
 }
