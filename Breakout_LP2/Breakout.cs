@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using GameEngine;
 
-namespace Breakout_LP2 {
-    public class Breakout {
+namespace Breakout_LP2
+{
+    public class Breakout
+    {
 
         // World dimensions
         int xdim = 50, ydim = 40;
@@ -14,7 +16,8 @@ namespace Breakout_LP2 {
         // The (only) game scene
         private Scene gameScene;
 
-        public Breakout() {
+        public Breakout()
+        {
             // Create scene
             ConsoleKey[] quitKeys = new ConsoleKey[] { ConsoleKey.Escape };
             gameScene = new Scene(xdim, ydim,
@@ -32,11 +35,11 @@ namespace Breakout_LP2 {
             // Create player object
             char[,] playerSprite =
             {
-                { '-' },
-                { '-' },
+                { ' ' },
+                { ' ' },
                 { 'P' },
-                { '-' },
-                { '-' }
+                { ' ' },
+                { ' ' }
             };
             GameObject player = new GameObject("Player");
             KeyObserver playerKeyListener = new KeyObserver(new ConsoleKey[] {
@@ -62,6 +65,37 @@ namespace Breakout_LP2 {
             ball.AddComponent(new ConsoleSprite(
                 ballSprite, ConsoleColor.Red, ConsoleColor.DarkYellow));
             gameScene.AddGameObject(ball);
+
+            // Bricks Objects
+            char[,] brickSprite =
+            {
+                { ' ' },
+                { ' ' },
+                { ' ' }
+            };
+
+
+            GameObject[,] brick = new GameObject[xdim, ydim];
+
+            for (int i = 4; i < 48; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    if (j % 4 == 0 && i % 4 == 0)
+                    {
+                        brick[i, j] = new GameObject("Brick" + i + j);
+
+                        Position brickPos = new Position(i, j, 0f);
+                        brick[i, j].AddComponent(brickPos);
+                        brick[i, j].AddComponent(new Brick());
+                        brick[i, j].AddComponent(new ConsoleSprite(
+                            brickSprite, ConsoleColor.White, ConsoleColor.Blue));
+                        gameScene.AddGameObject(brick[i, j]);
+
+                    }
+                }
+            }
+
 
             // Create walls
             GameObject walls = new GameObject("Walls");
@@ -103,7 +137,8 @@ namespace Breakout_LP2 {
 
         }
 
-        public void Run() {
+        public void Run()
+        {
             // Start game loop
             gameScene.GameLoop(frameLength);
         }
