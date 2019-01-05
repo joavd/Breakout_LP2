@@ -47,12 +47,16 @@ namespace Breakout_LP2
                         {
                             yMove *= -1;
                             xMove = 1;
-                        }else if(positionOther.Pos.Y - 1 == y
+                        }
+                        else if (positionOther.Pos.Y - 1 == y
                         && (positionOther.Pos.X == x
-                        || positionOther.Pos.X + 1 == x)){
+                        || positionOther.Pos.X + 1 == x))
+                        {
                             yMove *= -1;
                             xMove = -1;
-                        }else if (positionOther.Pos.Y - 1 == y && positionOther.Pos.X + 2 == x)
+                        }
+                        else if (positionOther.Pos.Y - 1 == y
+                        && positionOther.Pos.X + 2 == x)
                         {
                             yMove *= -1;
                         }
