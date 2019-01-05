@@ -42,11 +42,17 @@ namespace Breakout_LP2
                         Position positionOther = s.GetComponent<Position>();
 
                         if (positionOther.Pos.Y - 1 == y
-                        && (positionOther.Pos.X == x
-                        || positionOther.Pos.X + 1 == x
-                        || positionOther.Pos.X + 2 == x
-                        || positionOther.Pos.X + 3 == x
+                        && (positionOther.Pos.X + 3 == x
                         || positionOther.Pos.X + 4 == x))
+                        {
+                            yMove *= -1;
+                            xMove = 1;
+                        }else if(positionOther.Pos.Y - 1 == y
+                        && (positionOther.Pos.X == x
+                        || positionOther.Pos.X + 1 == x)){
+                            yMove *= -1;
+                            xMove = -1;
+                        }else if (positionOther.Pos.Y - 1 == y && positionOther.Pos.X + 2 == x)
                         {
                             yMove *= -1;
                         }
@@ -82,7 +88,6 @@ namespace Breakout_LP2
                 if (removeObject != null)
                 {
                     removeObject.Finish();
-
                 }
             }
 
