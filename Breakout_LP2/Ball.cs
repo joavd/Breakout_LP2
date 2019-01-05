@@ -32,15 +32,28 @@ namespace Breakout_LP2
             {
                 if (s != null)
                 {
-                    if (s.Name == "Player" || (s.Name != "Ball" && s.Name != "Quitter"))
+                    if (s.Name == "Player")
+                    {
+                        Position positionOther = s.GetComponent<Position>();
+
+                        if (positionOther.Pos.Y - 1 == y
+                        && (positionOther.Pos.X == x
+                        || positionOther.Pos.X + 1 == x
+                        || positionOther.Pos.X + 2 == x
+                        || positionOther.Pos.X + 3 == x
+                        || positionOther.Pos.X + 4 == x))
+                        {
+                            yMove *= -1;
+                        }
+                    }
+                    else if ((s.Name != "Ball" && s.Name != "Quitter"))
                     {
                         Position positionOther = s.GetComponent<Position>();
                         if (positionOther.Pos.Y - 1 == y
-                            && (positionOther.Pos.X == x 
+                            && (positionOther.Pos.X == x
                             || positionOther.Pos.X + 1 == x
-                            || positionOther.Pos.X + 2 == x 
-                            || positionOther.Pos.X + 3 == x
-                            || positionOther.Pos.X + 4 == x)
+                            || positionOther.Pos.X + 2 == x
+                            || positionOther.Pos.X + 3 == x)
                             || positionOther.Pos.Y + 1 == y
                             && (positionOther.Pos.X == x
                             || positionOther.Pos.X + 1 == x
@@ -48,6 +61,13 @@ namespace Breakout_LP2
                             || positionOther.Pos.X + 3 == x))
                         {
                             yMove *= -1;
+                        }
+                        else if (positionOther.Pos.X - 1 == x
+                           && positionOther.Pos.Y == y
+                           || positionOther.Pos.X + 4 == x
+                           && positionOther.Pos.Y == y)
+                        {
+                            xMove *= -1;
                         }
                     }
 
