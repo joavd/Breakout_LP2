@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace GameEngine {
@@ -78,7 +79,7 @@ namespace GameEngine {
                 long start = DateTime.Now.Ticks;
 
                 // Update game objects
-                foreach (GameObject gameObject in gameObjects.Values) {
+                foreach (GameObject gameObject in gameObjects.Values.ToList()) {
                     gameObject.Update();
                 }
 
