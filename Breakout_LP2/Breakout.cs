@@ -56,7 +56,7 @@ namespace Breakout_LP2
             // Ball Object
             char[,] ballSprite =
             {
-                { 'O' },
+                { ' ' },
             };
             GameObject ball = new GameObject("Ball");
             Position ballPos = new Position(25f, 30f, 0f);

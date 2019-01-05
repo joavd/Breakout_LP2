@@ -40,5 +40,10 @@ namespace Breakout_LP2 {
             // Update player position
             position.Pos = new Vector3(x, position.Pos.Y, position.Pos.Z);
         }
+
+        public override void Finish()
+        {
+            ParentScene.DestroyObject(ParentGameObject);
+        }
     }
 }

@@ -19,5 +19,10 @@ namespace Breakout_LP2 {
                 }
             }
         }
+
+        public override void Finish()
+        {
+            ParentScene.DestroyObject(ParentGameObject);
+        }
     }
 }

@@ -99,13 +99,17 @@ namespace GameEngine {
                 Thread.Sleep(timeToWait);
             }
 
-            // Stop reading input
-            inputHandler.StopReadingInput();
-
             // Teardown the game objects in this scene
-            foreach (GameObject gameObject in gameObjects.Values) {
+            foreach (GameObject gameObject in gameObjects.Values.ToList())
+            {
                 gameObject.Finish();
             }
+
+            // Render current frame
+            renderer?.Render(gameObjects.Values);
+
+            // Stop reading input
+            inputHandler.StopReadingInput();
 
             // Teardown renderer
             renderer?.Finish();

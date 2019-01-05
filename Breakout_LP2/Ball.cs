@@ -75,6 +75,7 @@ namespace Breakout_LP2
                            && positionOther.Pos.Y == y)
                         {
                             xMove *= -1;
+                            removeObject = s;
                         }
                     }
 
@@ -91,7 +92,8 @@ namespace Breakout_LP2
             // Não sei ver como se encontra outro gameobject
             if (y + yMove >= ParentScene.ydim - 1)
             {
-                Console.WriteLine("Morreu pachin");
+                ParentScene.Terminate();
+                Console.WriteLine("Terminei");
             }
 
             if (x + xMove >= ParentScene.xdim - 1 || x + xMove <= 0)
@@ -112,14 +114,16 @@ namespace Breakout_LP2
                 y += yMove;
             }
 
-
-
-
             // Make sure ball doesn't get outside of game area
             y = Math.Clamp(y, 1, ParentScene.ydim - 1);
 
             // Update ball position
             position.Pos = new Vector3(x, y, position.Pos.Z);
+        }
+
+        public override void Finish()
+        {
+            ParentScene.DestroyObject(ParentGameObject);
         }
     }
 }
