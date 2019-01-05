@@ -9,7 +9,6 @@ namespace Breakout_LP2
 {
     public class Ball : Component
     {
-
         private int xMove = 1;
         private int yMove = -1;
 

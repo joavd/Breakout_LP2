@@ -100,7 +100,7 @@ namespace Breakout_LP2
             // Create walls
             GameObject walls = new GameObject("Walls");
             ConsolePixel wallPixel = new ConsolePixel(
-                '#', ConsoleColor.Blue, ConsoleColor.White);
+                ' ', ConsoleColor.Blue, ConsoleColor.White);
             Dictionary<Vector2, ConsolePixel> wallPixels =
                 new Dictionary<Vector2, ConsolePixel>();
             for (int x = 0; x < xdim; x++)
