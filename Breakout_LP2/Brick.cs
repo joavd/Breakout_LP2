@@ -1,20 +1,13 @@
 ﻿using GameEngine;
-
+using System;
 
 namespace Breakout_LP2
 {
-    class Brick: Component
+    class Brick : Component
     {
-            // Initialize Brick
-            public override void Start()
-            {
-
-            }
-
-            // Update player in the current frame
-            public override void Update()
-            {
-
-            }
+        public override void Finish()
+        {
+            ParentScene.DestroyObject(ParentGameObject);
         }
+    }
 }

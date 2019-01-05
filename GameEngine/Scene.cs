@@ -45,6 +45,11 @@ namespace GameEngine {
             return gameObjects[name];
         }
 
+        public void DestroyObject(GameObject gameObject)
+        {
+            gameObjects.Remove(gameObject.Name, out gameObject);
+        }
+
         // Terminate scene
         public void Terminate() {
             terminate = true;

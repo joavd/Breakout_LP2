@@ -1,6 +1,7 @@
 ﻿using System;
 using GameEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 
 namespace Breakout_LP2
@@ -15,6 +16,8 @@ namespace Breakout_LP2
         // components
         private Position position;
 
+        GameObject removeObject;
+
         // Initialize player
         public override void Start()
         {
@@ -28,7 +31,9 @@ namespace Breakout_LP2
             float x = position.Pos.X;
             float y = position.Pos.Y;
 
-            foreach (GameObject s in ParentScene.gameObjects.Values)
+            removeObject = null;
+
+            foreach (GameObject s in ParentScene.gameObjects.Values.ToList())
             {
                 if (s != null)
                 {
@@ -61,6 +66,7 @@ namespace Breakout_LP2
                             || positionOther.Pos.X + 3 == x))
                         {
                             yMove *= -1;
+                            removeObject = s;
                         }
                         else if (positionOther.Pos.X - 1 == x
                            && positionOther.Pos.Y == y
@@ -70,6 +76,11 @@ namespace Breakout_LP2
                             xMove *= -1;
                         }
                     }
+
+                }
+                if (removeObject != null)
+                {
+                    removeObject.Finish();
 
                 }
             }
