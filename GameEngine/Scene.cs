@@ -15,7 +15,7 @@ namespace GameEngine {
         public readonly InputHandler inputHandler;
 
         // Game objects in this scene
-        private Dictionary<string, GameObject> gameObjects;
+        public Dictionary<string, GameObject> gameObjects;
 
         // Is the scene terminated?
         private bool terminate;

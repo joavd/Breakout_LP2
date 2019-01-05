@@ -19,7 +19,7 @@ namespace Breakout_LP2 {
             ConsoleKey[] quitKeys = new ConsoleKey[] { ConsoleKey.Escape };
             gameScene = new Scene(xdim, ydim,
                 new InputHandler(quitKeys),
-                new ConsoleRenderer(xdim, ydim, new ConsolePixel('.')));
+                new ConsoleRenderer(xdim, ydim, new ConsolePixel(' ')));
 
             // Create quitter object
             GameObject quitter = new GameObject("Quitter");

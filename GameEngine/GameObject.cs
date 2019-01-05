@@ -18,6 +18,8 @@ namespace GameEngine {
         public bool IsRenderable =>
             containsRenderableComponent && containsPosition;
 
+        public IEnumerable<GameObject> Field { get; set; }
+
         // Component which the object can only have one of
         private static readonly Type[] oneOfAKind = new Type[] {
             typeof(Position),
