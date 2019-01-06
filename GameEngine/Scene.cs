@@ -56,7 +56,8 @@ namespace GameEngine {
         }
 
         // Game loop
-        public void GameLoop(int msFramesPerSecond) {
+        // https://gafferongames.com/post/fix_your_timestep/
+        public void GameLoop() {
             double previous = DateTime.Now.Ticks;
             double lag = 0.0;
             double ms = 16;
@@ -79,13 +80,13 @@ namespace GameEngine {
                 previous = current;
                 lag += elapsed;
 
-                while (lag >= ms) {
-                    lag -= ms;
-                }
-
                 // Update game objects
                 foreach (GameObject gameObject in gameObjects.Values.ToList()) {
                     gameObject.Update();
+                }
+
+                while (lag >= ms) {
+                    lag -= ms;
                 }
 
                 // Render current frame
@@ -105,6 +106,8 @@ namespace GameEngine {
 
             // Teardown renderer
             renderer?.Finish();
+
+            return;
         }
     }
 }

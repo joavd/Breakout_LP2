@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.InteropServices;
 
 namespace Breakout_LP2 {
 
     // Class that shows the menu
     public class Menu {
+        // World dimensions
+        int xdim = 50, ydim = 40;
+
         private const string title = @"
 ____________ _____  ___   _   _______ _   _ _____ 
 | ___ \ ___ \  ___|/ _ \ | | / /  _  | | | |_   _|
@@ -16,18 +18,26 @@ ____________ _____  ___   _   _______ _   _ _____
                                                   ";
 
         public const string alejandro = @"
-    _   _      _              _           _   _                     
-   /_\ | |___ (_)__ _ _ _  __| |_ _ ___  | | | |_ _ __ ___ _ _ __ _ 
-  / _ \| / -_)| / _` | ' \/ _` | '_/ _ \ | |_| | '_/ _/ -_) '_/ _` |
- /_/ \_\_\___|/ \__,_|_||_\__,_|_| \___/  \___/|_| \__\___|_| \__,_|
-            |__/                                                    ";
+    _   _      _              _         
+   /_\ | |___ (_)__ _ _ _  __| |_ _ ___ 
+  / _ \| / -_)| / _` | ' \/ _` | '_/ _ \
+ /_/ \_\_\___|/ \__,_|_||_\__,_|_| \___/
+            |__/                        
+        _   _                           
+       | | | |_ _ __ ___ _ _ __ _       
+       | |_| | '_/ _/ -_) '_/ _` |      
+        \___/|_| \__\___|_| \__,_|      
+                                        ";
 
         private const string joao = @"
-     _       /\/|      ___                _       
-  _ | |___  |/\/ ___  |   \ _  _ __ _ _ _| |_ ___ 
- | || / _ \/ _` / _ \ | |) | || / _` | '_|  _/ -_)
-  \__/\___/\__,_\___/ |___/ \_,_\__,_|_|  \__\___|
-                                                  ";
+              _       /\/|         
+           _ | |___  |/\/ ___      
+          | || / _ \/ _` / _ \     
+           \__/\___/\__,_\___/     
+        ___                _       
+       |   \ _  _ __ _ _ _| |_ ___ 
+       | |) | || / _` | '_|  _/ -_)
+       |___/ \_,_\__,_|_|  \__\___|";
 
         private const string controls = "HOW TO PLAY\n\n" +
             "In Breakout, a layer of bricks lines the top third of the" +
@@ -43,10 +53,13 @@ ____________ _____  ___   _   _______ _   _ _____
         public void ShowOptions() {
             bool end = false;
             short option;
-            Breakout br = new Breakout();
 
             do {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                    Console.SetWindowSize(xdim, ydim + 1);
+                }
                 Console.Clear();
+                Console.BackgroundColor = ConsoleColor.Black;
                 ShowMenu();
                 Console.WriteLine("\n");
                 AskOption();
@@ -54,6 +67,7 @@ ____________ _____  ___   _   _______ _   _ _____
 
                 switch (option) {
                     case 1:
+                        Breakout br = new Breakout(xdim, ydim);
                         br.Run();
                         break;
                     case 2:

@@ -8,16 +8,15 @@ namespace Breakout_LP2
     {
 
         // World dimensions
-        int xdim = 50, ydim = 40;
-
-        // Frame duration in miliseconds
-        int frameLength = 100;
+        private int xdim, ydim;
 
         // The (only) game scene
         private Scene gameScene;
 
-        public Breakout()
+        public Breakout(int xdim, int ydim)
         {
+            this.xdim = xdim;
+            this.ydim = ydim;
             // Create scene
             ConsoleKey[] quitKeys = new ConsoleKey[] { ConsoleKey.Escape };
             gameScene = new Scene(xdim, ydim,
@@ -174,7 +173,7 @@ namespace Breakout_LP2
         public void Run()
         {
             // Start game loop
-            gameScene.GameLoop(frameLength);
+            gameScene.GameLoop();
         }
     }
 

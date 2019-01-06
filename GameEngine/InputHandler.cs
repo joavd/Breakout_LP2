@@ -24,7 +24,6 @@ namespace GameEngine {
             this.quitKeys = quitKeys;
             observers = new
                 Dictionary<ConsoleKey, ICollection<IObserver<ConsoleKey>>>();
-            inputThread = new Thread(ReadInput);
         }
 
         // Method which will run in a thread reading keys
@@ -48,6 +47,7 @@ namespace GameEngine {
 
         // Start thread which will read the input
         public void StartReadingInput() {
+            inputThread = new Thread(ReadInput);
             inputThread.Start();
         }
 
