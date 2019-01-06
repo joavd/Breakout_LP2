@@ -168,6 +168,18 @@ namespace Breakout_LP2 {
             // Adds the object to the scene
             gameScene.AddGameObject(pos);
 
+
+            // Create game object for showing puntuation
+            GameObject points = new GameObject("Points");
+            points.AddComponent(new Position(50, 0, 10));
+            RenderableStringComponent rscPoints = new RenderableStringComponent(
+                () => $"({gameScene.points})",
+                i => new Vector2(i, 0),
+                ConsoleColor.DarkMagenta, ConsoleColor.White);
+            // Adds the given components
+            points.AddComponent(rscPoints);
+            // Adds the object to the scene
+            gameScene.AddGameObject(points);
         }
 
         /// <summary>
