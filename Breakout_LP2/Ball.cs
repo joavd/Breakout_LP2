@@ -100,7 +100,6 @@ namespace Breakout_LP2 {
             // Não sei ver como se encontra outro gameobject
             if (y + yMove >= ParentScene.ydim - 1) {
                 ParentScene.Terminate();
-                Console.WriteLine("Terminei");
             }
 
             // If the ball goes out of bounds

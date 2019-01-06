@@ -31,10 +31,10 @@ namespace Breakout_LP2 {
             foreach (ConsoleKey key in keyObserver.GetCurrentKeys()) {
                 switch (key) {
                     case ConsoleKey.RightArrow:
-                        x += 1;
+                        x += 2;
                         break;
                     case ConsoleKey.LeftArrow:
-                        x -= 1;
+                        x -= 2;
                         break;
                 }
             }
