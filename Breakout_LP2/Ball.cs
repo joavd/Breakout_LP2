@@ -44,7 +44,8 @@ namespace Breakout_LP2
                         if (positionOther.Pos.Y - 1 == y
                         && (positionOther.Pos.X + 3 == x
                         || positionOther.Pos.X + 4 == x) 
-                        || (positionOther.Pos.X +5 == x 
+                        || ((positionOther.Pos.X +5 == x 
+                        || positionOther.Pos.X + 4 == x)
                         && positionOther.Pos.Y == y))
                         {
                             yMove *= -1;
@@ -53,7 +54,8 @@ namespace Breakout_LP2
                         else if (positionOther.Pos.Y - 1 == y
                         && (positionOther.Pos.X == x
                         || positionOther.Pos.X + 1 == x)
-                        || (positionOther.Pos.X - 1 == x
+                        || ((positionOther.Pos.X - 1 == x
+                        || positionOther.Pos.X == x)
                         && positionOther.Pos.Y == y))
                         {
                             yMove *= -1;
@@ -71,20 +73,20 @@ namespace Breakout_LP2
                         if (positionOther.Pos.Y - 1 == y
                             && (positionOther.Pos.X == x
                             || positionOther.Pos.X + 1 == x
-                            || positionOther.Pos.X + 2 == x
-                            || positionOther.Pos.X + 3 == x)
+                            || positionOther.Pos.X + 2 == x)
                             || positionOther.Pos.Y + 1 == y
                             && (positionOther.Pos.X == x
                             || positionOther.Pos.X + 1 == x
-                            || positionOther.Pos.X + 2 == x
-                            || positionOther.Pos.X + 3 == x))
+                            || positionOther.Pos.X + 2 == x))
                         {
                             yMove *= -1;
                             removeObject = s;
                         }
-                        else if (positionOther.Pos.X - 1 == x
+                        else if ((positionOther.Pos.X - 1 == x
+                            || positionOther.Pos.X == x)
                            && positionOther.Pos.Y == y
-                           || positionOther.Pos.X + 4 == x
+                           || (positionOther.Pos.X + 3 == x
+                           || positionOther.Pos.X + 2 == x)
                            && positionOther.Pos.Y == y)
                         {
                             xMove *= -1;

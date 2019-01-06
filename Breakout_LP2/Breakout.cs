@@ -37,7 +37,7 @@ namespace Breakout_LP2
             {
                 { ' ' },
                 { ' ' },
-                { 'P' },
+                { ' ' },
                 { ' ' },
                 { ' ' }
             };
@@ -77,21 +77,55 @@ namespace Breakout_LP2
 
             GameObject[,] brick = new GameObject[xdim, ydim];
 
-            for (int i = 4; i < 48; i++)
+            for (int i = 3; i < 48; i++)
             {
-                for (int j = 0; j < 24; j++)
+                for (int j = 5; j < 17; j++)
                 {
-                    if (j % 4 == 0 && i % 4 == 0)
+                    if (i % 3 == 0)
                     {
                         brick[i, j] = new GameObject("Brick" + i + j);
 
                         Position brickPos = new Position(i, j, 0f);
                         brick[i, j].AddComponent(brickPos);
                         brick[i, j].AddComponent(new Brick());
-                        brick[i, j].AddComponent(new ConsoleSprite(
-                            brickSprite, ConsoleColor.White, ConsoleColor.Blue));
-                        gameScene.AddGameObject(brick[i, j]);
 
+                        if (j >= 4 && j <= 6)
+                        {
+                            brick[i, j].AddComponent(new ConsoleSprite(
+                            brickSprite, ConsoleColor.White, ConsoleColor.DarkRed));
+                            gameScene.AddGameObject(brick[i, j]);
+                        }
+                        else if (j > 6 && j <= 8)
+                        {
+                            brick[i, j].AddComponent(new ConsoleSprite(
+                            brickSprite, ConsoleColor.White, ConsoleColor.Red));
+                            gameScene.AddGameObject(brick[i, j]);
+                        }
+                        else if (j > 8 && j <= 10)
+                        {
+                            brick[i, j].AddComponent(new ConsoleSprite(
+                            brickSprite, ConsoleColor.White, ConsoleColor.DarkYellow));
+                            gameScene.AddGameObject(brick[i, j]);
+                        }
+                        else if (j > 10 && j <= 12)
+                        {
+                            brick[i, j].AddComponent(new ConsoleSprite(
+                            brickSprite, ConsoleColor.White, ConsoleColor.Green));
+                            gameScene.AddGameObject(brick[i, j]);
+                        }
+                        else if (j > 12 && j <= 14)
+                        {
+                            brick[i, j].AddComponent(new ConsoleSprite(
+                            brickSprite, ConsoleColor.White, ConsoleColor.DarkCyan));
+                            gameScene.AddGameObject(brick[i, j]);
+                        }
+                        else
+                        {
+                            brick[i, j].AddComponent(new ConsoleSprite(
+                            brickSprite, ConsoleColor.White, ConsoleColor.Blue));
+                            gameScene.AddGameObject(brick[i, j]);
+
+                        }
                     }
                 }
             }
