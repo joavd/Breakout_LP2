@@ -50,20 +50,20 @@ namespace Breakout_LP2
             player.AddComponent(playerPos);
             player.AddComponent(new Player());
             player.AddComponent(new ConsoleSprite(
-                playerSprite, ConsoleColor.Red, ConsoleColor.DarkGreen));
+                playerSprite, ConsoleColor.Yellow, ConsoleColor.DarkRed));
             gameScene.AddGameObject(player);
 
             // Ball Object
             char[,] ballSprite =
             {
-                { ' ' },
+                { ' ' }
             };
             GameObject ball = new GameObject("Ball");
             Position ballPos = new Position(25f, 30f, 0f);
             ball.AddComponent(ballPos);
             ball.AddComponent(new Ball());
             ball.AddComponent(new ConsoleSprite(
-                ballSprite, ConsoleColor.Red, ConsoleColor.DarkYellow));
+                ballSprite, ConsoleColor.Red, ConsoleColor.Red));
             gameScene.AddGameObject(ball);
 
             // Bricks Objects
@@ -79,7 +79,7 @@ namespace Breakout_LP2
 
             for (int i = 4; i < 48; i++)
             {
-                for (int j = 0; j < 20; j++)
+                for (int j = 0; j < 24; j++)
                 {
                     if (j % 4 == 0 && i % 4 == 0)
                     {

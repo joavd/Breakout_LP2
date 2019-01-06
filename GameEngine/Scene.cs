@@ -46,8 +46,7 @@ namespace GameEngine {
             return gameObjects[name];
         }
 
-        public void DestroyObject(GameObject gameObject)
-        {
+        public void DestroyObject(GameObject gameObject) {
             gameObjects.Remove(gameObject.Name, out gameObject);
         }
 
@@ -58,6 +57,9 @@ namespace GameEngine {
 
         // Game loop
         public void GameLoop(int msFramesPerSecond) {
+            double previous = DateTime.Now.Ticks;
+            double lag = 0.0;
+            double ms = 16;
 
             // Initialize all game objects
             foreach (GameObject gameObject in gameObjects.Values) {
@@ -72,11 +74,14 @@ namespace GameEngine {
 
             // Perform the game loop until the scene is terminated
             while (!terminate) {
-                // Time to wait until next frame
-                int timeToWait;
+                double current = DateTime.Now.Ticks;
+                double elapsed = current - previous;
+                previous = current;
+                lag += elapsed;
 
-                // Get real time in ticks (10000 ticks = 1 milisecond)
-                long start = DateTime.Now.Ticks;
+                while (lag >= ms) {
+                    lag -= ms;
+                }
 
                 // Update game objects
                 foreach (GameObject gameObject in gameObjects.Values.ToList()) {
@@ -85,23 +90,10 @@ namespace GameEngine {
 
                 // Render current frame
                 renderer?.Render(gameObjects.Values);
-
-                // Time to wait until next frame
-                timeToWait = (int)(start / 10000 + msFramesPerSecond
-                    - DateTime.Now.Ticks / 10000);
-
-                // If this time is negative, we cheat by making it zero
-                // Note this should be handled with a more robust game loop
-                // and not like this
-                timeToWait = timeToWait > 0 ? timeToWait : 0;
-
-                // Wait until next frame
-                Thread.Sleep(timeToWait);
             }
 
             // Teardown the game objects in this scene
-            foreach (GameObject gameObject in gameObjects.Values.ToList())
-            {
+            foreach (GameObject gameObject in gameObjects.Values.ToList()) {
                 gameObject.Finish();
             }
 
