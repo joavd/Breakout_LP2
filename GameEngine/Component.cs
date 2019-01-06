@@ -1,11 +1,16 @@
 ﻿namespace GameEngine {
-
-    // All game object components must implement this interface
+    /// <summary>
+    /// All game object components must implement this interface
+    /// </summary>
     public abstract class Component : BaseGameObject {
-
-        // Reference to the parent game object
+        /// <summary>
+        /// Reference to the parent game object
+        /// </summary>
         public GameObject ParentGameObject { get; internal set; }
-        // Reference to the parent scene
+
+        /// <summary>
+        /// Reference to the parent scene
+        /// </summary>
         public Scene ParentScene => ParentGameObject.ParentScene;
     }
 }

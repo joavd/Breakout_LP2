@@ -2,12 +2,14 @@
 using System.Runtime.InteropServices;
 
 namespace Breakout_LP2 {
-
-    // Class that shows the menu
+    /// <summary>
+    /// Class that shows the menu
+    /// </summary>
     public class Menu {
         // World dimensions
-        int xdim = 50, ydim = 40;
+        private readonly int xdim = 50, ydim = 40;
 
+        // Title to display
         private const string title = @"
 ____________ _____  ___   _   _______ _   _ _____ 
 | ___ \ ___ \  ___|/ _ \ | | / /  _  | | | |_   _|
@@ -16,8 +18,8 @@ ____________ _____  ___   _   _______ _   _ _____
 | |_/ / |\ \| |___| | | || |\  \ \_/ / |_| | | |  
 \____/\_| \_\____/\_| |_/\_| \_/\___/ \___/  \_/  
                                                   ";
-
-        public const string alejandro = @"
+        // Alejandro name to display
+        private const string alejandro = @"
     _   _      _              _         
    /_\ | |___ (_)__ _ _ _  __| |_ _ ___ 
   / _ \| / -_)| / _` | ' \/ _` | '_/ _ \
@@ -29,6 +31,7 @@ ____________ _____  ___   _   _______ _   _ _____
         \___/|_| \__\___|_| \__,_|      
                                         ";
 
+        // Joao name to display
         private const string joao = @"
               _       /\/|         
            _ | |___  |/\/ ___      
@@ -39,36 +42,45 @@ ____________ _____  ___   _   _______ _   _ _____
        | |) | || / _` | '_|  _/ -_)
        |___/ \_,_\__,_|_|  \__\___|";
 
+        // Controls to display
         private const string controls = "HOW TO PLAY\n\n" +
-            "In Breakout, a layer of bricks lines the top third of the" +
+            "In Breakout, a layer of bricks lines\nthe top third of the" +
             " screen.\nA ball travels across the " +
-            "screen, bouncing off the top and side walls of the screen.\n" +
-            "When a brick is hit, the ball bounces away and the brick is " +
-            "destroyed.\nThe player loses a turn when the ball touches the " +
+            "screen, bouncing\noff the top and side walls of the screen.\n" +
+            "When a brick is hit, the ball bounces away\nand the brick is " +
+            "destroyed.\nThe player loses a turn when the ball\ntouches the " +
             "bottom of the screen.\nTo prevent this from happening, the " +
-            "player has a movable paddle to bounce the ball upward, keeping" +
-            " it in play.\n\nYou play Breakout by using the LEFT and " +
+            "player\nhas a movable paddle to bounce the ball\nupward, keeping" +
+            " it in play.\n\nYou play Breakout by using the\nLEFT and " +
             "RIGHT arrows ";
 
+        /// <summary>
+        /// Shows the options to choose from in the main menu
+        /// </summary>
         public void ShowOptions() {
+            // If ends the loop
             bool end = false;
+            // Option the user chooses
             short option;
 
             do {
+                // Resizes the window if it's in Windows
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
                     Console.SetWindowSize(xdim, ydim + 1);
                 }
                 Console.Clear();
-                Console.BackgroundColor = ConsoleColor.Black;
                 ShowMenu();
                 Console.WriteLine("\n");
                 AskOption();
+                // Reads the input
                 short.TryParse(Console.ReadLine(), out option);
 
+                // Switches according to the option
                 switch (option) {
                     case 1:
                         Breakout br = new Breakout(xdim, ydim);
                         br.Run();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case 2:
                         Console.Clear();
@@ -93,6 +105,7 @@ ____________ _____  ___   _   _______ _   _ _____
             return;
         }
 
+        // Shows the main menu
         private void ShowMenu() {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(title);
@@ -101,14 +114,17 @@ ____________ _____  ___   _   _______ _   _ _____
                 "4. Quit");
         }
 
+        // Asks which option the user wants
         private void AskOption() {
             Console.WriteLine("What do you want to do?");
         }
 
+        // Shows controls
         private void ShowControls() {
             Console.WriteLine(controls);
         }
 
+        // Shows credits
         private void ShowCredits() {
             Console.WriteLine("This project was made by:\n");
             Console.WriteLine(alejandro);
@@ -116,11 +132,7 @@ ____________ _____  ___   _   _______ _   _ _____
             Console.WriteLine(joao);
         }
 
-        public void WrongOption(string option) {
-            Console.Write("The option you chose (" + option + ") is not a " +
-                "valid option.\n");
-        }
-
+        // Says Bye message
         private void Bye() {
             Console.WriteLine("\nThanks for playing! Until next time!");
         }

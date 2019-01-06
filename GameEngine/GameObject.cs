@@ -4,21 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace GameEngine {
-
-    // Class for all game objects
+    /// <summary>
+    /// Class for all game objects
+    /// </summary>
     public class GameObject : IGameObject, IEnumerable<Component> {
-
-        // Scene where the game object is
+        /// <summary>
+        /// Scene where the game object is
+        /// </summary>
         public Scene ParentScene { get; internal set; }
 
-        // The name of this game object
+        /// <summary>
+        /// The name of this game object
+        /// </summary>
         public string Name { get; }
 
-        // Is this object renderable?
+        /// <summary>
+        /// Is this object renderable?
+        /// </summary>
         public bool IsRenderable =>
             containsRenderableComponent && containsPosition;
-
-        public IEnumerable<GameObject> Field { get; set; }
 
         // Component which the object can only have one of
         private static readonly Type[] oneOfAKind = new Type[] {
@@ -33,13 +37,19 @@ namespace GameEngine {
         // The components in this game object
         private readonly ICollection<Component> components;
 
-        // Create a new game object
+        /// <summary>
+        /// Create a new game object
+        /// </summary>
+        /// <param name="name">Name of the game object</param>
         public GameObject(string name) {
             Name = name;
             components = new List<Component>();
         }
 
-        // Add a component to this game object
+        /// <summary>
+        /// Add a component to this game object
+        /// </summary>
+        /// <param name="component">Component to add</param>
         public void AddComponent(Component component) {
 
             // Check for one of a kind components
@@ -70,36 +80,58 @@ namespace GameEngine {
 
         // The following methods provide several ways of getting components
         // from this game object
+
+        /// <summary>
+        /// Get component of type
+        /// </summary>
+        /// <typeparam name="T">Type of the component</typeparam>
+        /// <returns></returns>
         public T GetComponent<T>() where T : Component {
             return components.FirstOrDefault(component => component is T) as T;
         }
 
+        /// <summary>
+        /// Get component of type
+        /// </summary>
+        /// <param name="type">Type of the component</param>
+        /// <returns></returns>
         public Component GetComponent(Type type) {
             return components.FirstOrDefault(
                 component => type.IsInstanceOfType(component));
         }
 
+        /// <summary>
+        /// Get component of type
+        /// </summary>
+        /// <typeparam name="T">Type of the component</typeparam>
+        /// <returns></returns>
         public IEnumerable<T> GetComponents<T>() where T : Component {
             return components
                 .Where(component => component is T)
                 .Select(component => component as T);
         }
 
-        // Initialize all components in this game object
+        /// <summary>
+        /// Initialize all components in this game object
+        /// </summary>
         public void Start() {
             foreach (Component component in components) {
                 component.Start();
             }
         }
 
-        // Update all components in this game object
+        /// <summary>
+        /// Update all components in this game object
+        /// </summary>
         public void Update() {
             foreach (Component component in components) {
                 component.Update();
             }
         }
 
-        // Tear fown all components in this game object
+        /// <summary>
+        /// Tear fown all components in this game object
+        /// </summary>
         public void Finish() {
             foreach (Component component in components) {
                 component.Finish();
@@ -109,7 +141,10 @@ namespace GameEngine {
         // The methods below are required for implementing the IEnumerable<T>
         // interface
 
-        // Go through all components in this game object
+        /// <summary>
+        /// Go through all components in this game object
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<Component> GetEnumerator() {
             return components.GetEnumerator();
         }

@@ -7,4 +7,9 @@
     <StartupObject />
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>bin\Debug\GameEngine.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>

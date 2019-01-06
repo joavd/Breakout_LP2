@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 
 namespace GameEngine {
-
-    // Represents a console sprite
+    /// <summary>
+    /// Represents a console sprite
+    /// </summary>
     public class ConsoleSprite : RenderableComponent {
-
-        // Since a console sprite is a renderable component, it must implement
-        // this property, which returns an ienumerable of position-pixel pairs
-        // to render
+        /// <summary>
+        /// Since a console sprite is a renderable component, it must implement
+        /// this property, which returns an ienumerable of position-pixel pairs
+        /// to render
+        /// </summary>
         public override
         IEnumerable<KeyValuePair<Vector2, ConsolePixel>> Pixels => pixels;
 
@@ -17,10 +19,18 @@ namespace GameEngine {
 
         // Below there are several constructors for this class
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleSprite"/> class.
+        /// </summary>
+        /// <param name="pixels">Pixels to draw</param>
         public ConsoleSprite(IDictionary<Vector2, ConsolePixel> pixels) {
             this.pixels = new Dictionary<Vector2, ConsolePixel>(pixels);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleSprite"/> class.
+        /// </summary>
+        /// <param name="pixels">Pixels to draw</param>
         public ConsoleSprite(ConsolePixel[,] pixels) {
             this.pixels = new Dictionary<Vector2, ConsolePixel>();
             for (int x = 0; x < pixels.GetLength(0); x++) {
@@ -33,6 +43,10 @@ namespace GameEngine {
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleSprite"/> class.
+        /// </summary>
+        /// <param name="pixels">Pixels to draw</param>
         public ConsoleSprite(char[,] pixels) {
             this.pixels = new Dictionary<Vector2, ConsolePixel>();
             for (int x = 0; x < pixels.GetLength(0); x++) {
@@ -46,6 +60,12 @@ namespace GameEngine {
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleSprite"/> class.
+        /// </summary>
+        /// <param name="pixels">Pixels to draw</param>
+        /// <param name="fgColor">Foreground color</param>
+        /// <param name="bgColor">Background color</param>
         public ConsoleSprite(char[,] pixels,
             ConsoleColor fgColor, ConsoleColor bgColor) {
             this.pixels = new Dictionary<Vector2, ConsolePixel>();

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace GameEngine {
-
-    // A renderer for the console
+    /// <summary>
+    /// A renderer for the console
+    /// </summary>
     public class ConsoleRenderer {
-
         // Was the cursor visible before game rendering started?
         // For now we assume it was
         private bool cursorVisibleBefore = true;
@@ -32,14 +32,21 @@ namespace GameEngine {
             }
         }
 
-        // Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="xdim">X dimension of the game display</param>
+        /// <param name="ydim">Y dimension of the game display</param>
+        /// <param name="bgPix">Pixel to draw</param>
         public ConsoleRenderer(int xdim, int ydim, ConsolePixel bgPix) {
             this.xdim = xdim;
             this.ydim = ydim;
             this.bgPix = bgPix;
         }
-
-        // Pre-rendering setup
+        
+        /// <summary>
+        /// Pre-rendering setup
+        /// </summary>
         public void Start() {
             // Clean console
             Console.Clear();
@@ -54,13 +61,18 @@ namespace GameEngine {
             }
 
         }
-
-        // Post-rendering teardown
+        
+        /// <summary>
+        /// Post-rendering teardown
+        /// </summary>
         public void Finish() {
             Console.CursorVisible = cursorVisibleBefore;
         }
-
-        // Render a frame
+        
+        /// <summary>
+        /// Render a frame
+        /// </summary>
+        /// <param name="gameObjects"></param>
         public void Render(IEnumerable<GameObject> gameObjects) {
             // Background and foreground colors of each pixel
             ConsoleColor fgColor, bgColor;

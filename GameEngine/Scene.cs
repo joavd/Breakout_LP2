@@ -1,21 +1,29 @@
 ﻿using System;
-using System.Threading;
 using System.Linq;
 using System.Collections.Generic;
 
 namespace GameEngine {
-
-    // This class represents a game scene
+    /// <summary>
+    /// This class represents a game scene
+    /// </summary>
     public class Scene {
-
-        // Scene dimensions
+        /// <summary>
+        /// X dimension of the scene
+        /// </summary>
         public readonly int xdim;
+        /// <summary>
+        /// Y dimension of the scene
+        /// </summary>
         public readonly int ydim;
 
-        // Input handler for this scene
+        /// <summary>
+        /// Input handler for this scene
+        /// </summary>
         public readonly InputHandler inputHandler;
 
-        // Game objects in this scene
+        /// <summary>
+        /// Game objects in this scene
+        /// </summary>
         public Dictionary<string, GameObject> gameObjects;
 
         // Is the scene terminated?
@@ -24,7 +32,13 @@ namespace GameEngine {
         // Renderer for this scene
         private ConsoleRenderer renderer;
 
-        // Create a new scene
+        /// <summary>
+        /// Create a new scene
+        /// </summary>
+        /// <param name="xdim">X dimension</param>
+        /// <param name="ydim">Y dimension</param>
+        /// <param name="inputHandler">The input handler</param>
+        /// <param name="renderer">The renderer</param>
         public Scene(int xdim, int ydim, InputHandler inputHandler,
             ConsoleRenderer renderer) {
             this.xdim = xdim;
@@ -35,28 +49,42 @@ namespace GameEngine {
             gameObjects = new Dictionary<string, GameObject>();
         }
 
-        // Add a game object to this scene
+        /// <summary>
+        /// Add a game object to this scene
+        /// </summary>
+        /// <param name="gameObject"></param>
         public void AddGameObject(GameObject gameObject) {
             gameObject.ParentScene = this;
             gameObjects.Add(gameObject.Name, gameObject);
         }
 
-        // Find a game object by name in this scene
+        /// <summary>
+        /// Find a game object by name in this scene
+        /// </summary>
+        /// <param name="name">Name of the object</param>
+        /// <returns>The object</returns>
         public GameObject FindGameObjectByName(string name) {
             return gameObjects[name];
         }
 
+        /// <summary>
+        /// Destroys an object by name in this scene
+        /// </summary>
+        /// <param name="gameObject"></param>
         public void DestroyObject(GameObject gameObject) {
             gameObjects.Remove(gameObject.Name, out gameObject);
         }
 
-        // Terminate scene
+        /// <summary>
+        /// Terminate scene
+        /// </summary>
         public void Terminate() {
             terminate = true;
         }
 
-        // Game loop
-        // https://gafferongames.com/post/fix_your_timestep/
+        /// <summary>
+        /// Game loop using gaffer on game's implementation
+        /// </summary>
         public void GameLoop() {
             double previous = DateTime.Now.Ticks;
             double lag = 0.0;

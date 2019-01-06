@@ -4,9 +4,10 @@ using System.Threading;
 using System.Collections.Generic;
 
 namespace GameEngine {
-
-    // This class handle keyboard input, other objects can register themselves
-    // as observers to listen to specific keys
+    /// <summary>
+    /// This class handle keyboard input, other objects can register themselves
+    /// as observers to listen to specific keys
+    /// </summary>
     public class InputHandler {
 
         // Observers for specific keys
@@ -19,7 +20,10 @@ namespace GameEngine {
         // A list of keys which cause the input handler to terminate
         private IEnumerable<ConsoleKey> quitKeys;
 
-        // Create a new input handler
+        /// <summary>
+        /// Create a new input handler
+        /// </summary>
+        /// <param name="quitKeys">Keys that quit</param>
         public InputHandler(IEnumerable<ConsoleKey> quitKeys) {
             this.quitKeys = quitKeys;
             observers = new
@@ -45,13 +49,17 @@ namespace GameEngine {
             } while (!quitKeys.Contains(key));
         }
 
-        // Start thread which will read the input
+        /// <summary>
+        /// Start thread which will read the input
+        /// </summary>
         public void StartReadingInput() {
             inputThread = new Thread(ReadInput);
             inputThread.Start();
         }
 
-        // Wait for thread reading the input to terminate
+        /// <summary>
+        /// Wait for thread reading the input to terminate
+        /// </summary>
         public void StopReadingInput() {
             inputThread.Join();
         }
@@ -59,6 +67,11 @@ namespace GameEngine {
         // Below are methods for registering and removing observers for this
         // subject
 
+        /// <summary>
+        /// Register an observer
+        /// </summary>
+        /// <param name="whatToObserve">What to observe</param>
+        /// <param name="observer">The observer</param>
         public void RegisterObserver(
             IEnumerable<ConsoleKey> whatToObserve,
             IObserver<ConsoleKey> observer) {
@@ -70,6 +83,11 @@ namespace GameEngine {
             }
         }
 
+        /// <summary>
+        /// Remove an observer
+        /// </summary>
+        /// <param name="whatToObserve">What to not observe</param>
+        /// <param name="observer">The observer</param>
         public void RemoveObserver(
             ConsoleKey whatToObserve, IObserver<ConsoleKey> observer) {
             if (observers.ContainsKey(whatToObserve)) {
@@ -77,6 +95,10 @@ namespace GameEngine {
             }
         }
 
+        /// <summary>
+        /// Remove an observer
+        /// </summary>
+        /// <param name="observer">The observer</param>
         public void RemoveObserver(IObserver<ConsoleKey> observer) {
             foreach (ICollection<IObserver<ConsoleKey>> theseObservers
                         in observers.Values) {

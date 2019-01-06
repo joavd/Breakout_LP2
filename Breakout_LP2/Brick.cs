@@ -1,12 +1,14 @@
 ﻿using GameEngine;
-using System;
 
-namespace Breakout_LP2
-{
-    class Brick : Component
-    {
-        public override void Finish()
-        {
+namespace Breakout_LP2 {
+    /// <summary>
+    /// Gameobject Brick
+    /// </summary>
+    public class Brick : Component {
+        /// <summary>
+        /// Destroys the brick
+        /// </summary>
+        public override void Finish() {
             ParentScene.DestroyObject(ParentGameObject);
         }
     }
