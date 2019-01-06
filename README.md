@@ -69,7 +69,7 @@ that there's a representation of a game.
 ### Fluxogram
 
 <p align="center">
-  <img src="Fluxogram.png" alt="Fluxogram"/>
+  <img src="fluxogram.png" alt="Fluxogram"/>
 </p>
 
 ## Conclusions
