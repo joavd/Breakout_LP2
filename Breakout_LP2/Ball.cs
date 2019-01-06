@@ -44,23 +44,25 @@ namespace Breakout_LP2 {
                         Position positionOther = s.GetComponent<Position>();
 
                         if (positionOther.Pos.Y - 1 == y
-                        && (positionOther.Pos.X + 3 == x
-                        || positionOther.Pos.X + 4 == x)
-                        || ((positionOther.Pos.X + 5 == x
-                        || positionOther.Pos.X + 4 == x)
+                        && (positionOther.Pos.X + 4 == x
+                        || positionOther.Pos.X + 5 == x
+                        || positionOther.Pos.X + 6 == x)
+                        || ((positionOther.Pos.X + 7 == x
+                        || positionOther.Pos.X + 6 == x)
                         && positionOther.Pos.Y == y)) {
                             yMove *= -1;
                             xMove = 1;
                         } else if (positionOther.Pos.Y - 1 == y
                           && (positionOther.Pos.X == x
-                          || positionOther.Pos.X + 1 == x)
+                          || positionOther.Pos.X + 1 == x
+                          || positionOther.Pos.X + 2 == x)
                           || ((positionOther.Pos.X - 1 == x
                           || positionOther.Pos.X == x)
                           && positionOther.Pos.Y == y)) {
                             yMove *= -1;
                             xMove = -1;
                         } else if (positionOther.Pos.Y - 1 == y
-                          && positionOther.Pos.X + 2 == x) {
+                          && positionOther.Pos.X + 3 == x) {
                             yMove *= -1;
                         }
                     } else if ((s.Name != "Ball" && s.Name != "Quitter")) {
@@ -74,14 +76,17 @@ namespace Breakout_LP2 {
                             || positionOther.Pos.X + 1 == x
                             || positionOther.Pos.X + 2 == x)) {
                             yMove *= -1;
+                            ParentScene.points += 10;
                             removeObject = s;
-                        } else if ((positionOther.Pos.X - 1 == x
+                        }
+                        else if ((positionOther.Pos.X - 1 == x
                               || positionOther.Pos.X == x)
                              && positionOther.Pos.Y == y
                              || (positionOther.Pos.X + 3 == x
                              || positionOther.Pos.X + 2 == x)
                              && positionOther.Pos.Y == y) {
                             xMove *= -1;
+                            ParentScene.points += 10;
                             removeObject = s;
                         }
                     }
@@ -98,7 +103,6 @@ namespace Breakout_LP2 {
             // Não sei ver como se encontra outro gameobject
             if (y + yMove >= ParentScene.ydim - 1) {
                 ParentScene.Terminate();
-                Console.WriteLine("Terminei");
             }
 
             // If the ball goes out of bounds

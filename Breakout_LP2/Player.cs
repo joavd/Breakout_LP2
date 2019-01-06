@@ -31,16 +31,16 @@ namespace Breakout_LP2 {
             foreach (ConsoleKey key in keyObserver.GetCurrentKeys()) {
                 switch (key) {
                     case ConsoleKey.RightArrow:
-                        x += 1;
+                        x += 2;
                         break;
                     case ConsoleKey.LeftArrow:
-                        x -= 1;
+                        x -= 2;
                         break;
                 }
             }
 
             // Make sure player doesn't get outside of game area
-            x = Math.Clamp(x, 1, ParentScene.xdim - 6);
+            x = Math.Clamp(x, 1, ParentScene.xdim - 8);
 
             // Update player position
             position.Pos = new Vector3(x, position.Pos.Y, position.Pos.Z);

@@ -7,7 +7,7 @@ namespace Breakout_LP2 {
     /// </summary>
     public class Menu {
         // World dimensions
-        private readonly int xdim = 50, ydim = 40;
+        private readonly int xdim = 60, ydim = 40;
 
         // Title to display
         private const string title = @"

@@ -16,6 +16,8 @@ namespace GameEngine {
         /// </summary>
         public readonly int ydim;
 
+        public int points = 0;
+
         /// <summary>
         /// Input handler for this scene
         /// </summary>
@@ -31,6 +33,7 @@ namespace GameEngine {
 
         // Renderer for this scene
         private ConsoleRenderer renderer;
+
 
         /// <summary>
         /// Create a new scene
