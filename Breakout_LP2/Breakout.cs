@@ -45,6 +45,8 @@ namespace Breakout_LP2 {
                 { ' ' },
                 { ' ' },
                 { ' ' },
+                { ' ' },
+                { ' ' },
                 { ' ' }
             };
             GameObject player = new GameObject("Player");
@@ -87,7 +89,7 @@ namespace Breakout_LP2 {
             GameObject[,] brick = new GameObject[xdim, ydim];
 
             // Creates the bricks
-            for (int i = 3; i < 48; i++) {
+            for (int i = 0; i < 60; i++) {
                 for (int j = 5; j < 17; j++) {
                     if (i % 3 == 0) {
                         brick[i, j] = new GameObject("Brick" + i + j);
@@ -153,18 +155,6 @@ namespace Breakout_LP2 {
             walls.AddComponent(new Position(0, 0, 1));
             // Adds object to the scene
             gameScene.AddGameObject(walls);
-
-            // Create game object for showing date and time
-            GameObject dtGameObj = new GameObject("Time");
-            dtGameObj.AddComponent(new Position(15, 0, 10));
-            RenderableStringComponent rscDT = new RenderableStringComponent(
-                () => DateTime.Now.ToString("F"),
-                i => new Vector2(i, 0),
-                ConsoleColor.DarkMagenta, ConsoleColor.White);
-            // Adds the given components
-            dtGameObj.AddComponent(rscDT);
-            // Adds the object to the scene
-            gameScene.AddGameObject(dtGameObj);
 
             // Create game object for showing position
             GameObject pos = new GameObject("Position");

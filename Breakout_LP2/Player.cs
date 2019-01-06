@@ -40,7 +40,7 @@ namespace Breakout_LP2 {
             }
 
             // Make sure player doesn't get outside of game area
-            x = Math.Clamp(x, 1, ParentScene.xdim - 6);
+            x = Math.Clamp(x, 1, ParentScene.xdim - 7);
 
             // Update player position
             position.Pos = new Vector3(x, position.Pos.Y, position.Pos.Z);
