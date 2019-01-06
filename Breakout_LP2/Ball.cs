@@ -16,7 +16,7 @@ namespace Breakout_LP2 {
         private Position position;
 
         // Gameobject to remove when colliding
-        GameObject removeObject;
+        private GameObject removeObject;
 
         /// <summary>
         /// Initializer Player
